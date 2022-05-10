@@ -1,7 +1,6 @@
 package com.consult.customer.service;
 
 import com.consult.customer.model.entity.CustomerEntity;
-import com.consult.customer.repository.CustomerRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

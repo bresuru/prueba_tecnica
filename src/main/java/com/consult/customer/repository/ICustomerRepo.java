@@ -4,7 +4,6 @@ import com.consult.customer.model.entity.CustomerEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Repositorio , normalmente se usa con la etiqueta @repositori pero como no va haber conexion a base de datos entonces todo esta quemado y simulo algo parecido

@@ -3,7 +3,6 @@ package com.consult.customer.service;
 import com.consult.customer.model.entity.CustomerEntity;
 import com.consult.customer.repository.CustomerRepo;
 import com.consult.customer.repository.ICustomerRepo;
-import com.consult.customer.util.DataTemp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
