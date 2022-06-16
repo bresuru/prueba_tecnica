@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+/**
+ * Controla las peticiones asociadas con el tema de los clientes
+ */
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
@@ -27,6 +30,24 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
+    /**
+     * Servicio que devuelve el formato de la carga de nuevos clientes
+     * @return
+     */
+    @GetMapping("")
+    public @ResponseBody ResponseEntity<Object> formatCustomer(){
+        logger.debug("begin formatCustomer");
+        return new ResponseEntity<>(new CustomerDto(), HttpStatus.OK);
+    }
+
+    /**
+     * Servicio que devuelve los datos de un cliente por su numero de idientificacion
+     *
+     * @param identificationNumber Numero de la identificacion
+     *
+     * @return Respuesta
+     * @throws Exception
+     */
     @GetMapping("/findByIdentificationNumber/{identificationNumber}")
     public @ResponseBody ResponseEntity<Object> getCustomerByIdentificationNumber(@PathVariable("identificationNumber")
                                                                                       @Valid String identificationNumber) throws Exception {
@@ -40,6 +61,11 @@ public class CustomerController {
         return new ResponseEntity<>("No se encontro ningun cliente con la cedula: " + identificationNumber, HttpStatus.OK);
     }
 
+    /**
+     * Devuelve todos los clientes guardados
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/findAll")
     public @ResponseBody ResponseEntity<JsonResponse<Object>> getAllCustomer() throws Exception {
         logger.debug("getAllCustomer");
@@ -48,9 +74,16 @@ public class CustomerController {
                 , HttpStatus.OK);
     }
 
+    /**
+     * Guarda un nuevo cliente
+     * @param customerDto
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/save")
     public @ResponseBody ResponseEntity<JsonResponse<Object>> saveCustomer(@RequestBody CustomerDto customerDto) throws Exception {
         logger.debug("saveCustomer customerDto=[{}]", customerDto);
+
         if (DocumentTypeEnum.findByValue(customerDto.getDocumentType()) == null){
             return new ResponseEntity<>(new JsonResponse<>(HttpStatus.BAD_REQUEST, "EL TIPO DE DOCUMENTO NO EXISTE, FORMATO DEL JSON:", new CustomerDto()),
                     HttpStatus.BAD_REQUEST);
@@ -68,6 +101,11 @@ public class CustomerController {
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * Elimina un cliente por su numero de idenficacion
+     * @param identificationNumber
+     * @return
+     */
     @DeleteMapping("/delete/{identificationNumber}")
     public @ResponseBody ResponseEntity<JsonResponse<Object>> delete(@Valid @PathVariable("identificationNumber") String identificationNumber){
         logger.debug("delete identificationNumber=[{}]", identificationNumber);
