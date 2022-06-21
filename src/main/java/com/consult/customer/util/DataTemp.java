@@ -2,6 +2,7 @@ package com.consult.customer.util;
 
 import com.consult.customer.model.entity.CityEntity;
 import com.consult.customer.model.entity.CustomerEntity;
+import com.consult.customer.model.entity.PersonEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class DataTemp {
     private static List<CustomerEntity> customerEntities;
     private static List<CityEntity> cityEntities;
     private static StringBuilder pathServices;
+    private static List<PersonEntity> personEntities;
 
     public static CustomerEntity addCustomer(CustomerEntity customerEntity){
         getCustomerEntities();
@@ -95,6 +97,24 @@ public class DataTemp {
         }
 
         return  pathServices;
+    }
+
+    /**
+     * Devuelve datos de las personas
+     * @return
+     */
+    public static List<PersonEntity> getPerson(){
+
+        if (personEntities == null)
+            personEntities = new ArrayList<>();
+
+        return personEntities;
+    }
+
+    public static PersonEntity savePerson(PersonEntity personEntity){
+        getPerson();
+        personEntities.add(personEntity);
+        return personEntity;
     }
 
 }
